@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<style>
+    table,td,tr,th{
+    border:1px solid black;
+    }
+</style>
+<link href="{% static 'css/1.css' %}" rel="stylesheet">
+<div class="col-sm-5 offset-1">
+  <h4 class="text-center alert alert-info">Add New Food Item </h4>
+  <form action="" method="POST">
+   {% csrf_token %}
+   {{form.as_p}}
+   <input type="submit" class="btn btn-success" value="Add">
+  </form>
+ </div>
+
+ <div class="col-sm-4 offset-1">
+
+  {% if stu %}
+   <table class="table table-striped.thead-dark">
+       <h4 class="text-center alert alert-danger"> Food Item </h4>
+     <thead>
+       <tr>
+         <th scope="col">ID</th>
+         <th scope="col">Food item</th>
+         <th scope="col">Protein</th>
+
+           <th scope="col">Carbohydrates</th>
+         <th scope="col">Fat</th>
+         <th scope="col">Calories</th>
+
+
+       </tr>
+     </thead>
+     <tbody>
+      {% for st in stu %}
+       <tr>
+         <th scope="row">{{st.id}}</th>
+         <td>{{st.Fooditem}}</td>
+         <td>{{st.Protein}}</td>
+         <td>{{st.Carbohydrates}}</td>
+           <td>{{st.Fat}}</td>
+         <td>{{st.Calories}}</td>
+
+       </tr>
+      {% endfor %}
+     </tbody>
+   </table>
+
+  {% else %}
+   <h4 class="text-center alert alert-warning">No Records</h4>
+  {% endif %}
+ </div>
+
+</div>
+{% endblock content %}

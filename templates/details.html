@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit">
+
+</form>
+
+
+{% for item in model %}
+
+{% if item.date_d.id == id %}
+
+<h2>{{item.add_item}}</h2><br>
+
+Protein - {{item.add_item.Protein}}
+.
+Carbohydrates - {{item.add_item.Carbohydrates}}
+.
+Fat - {{item.add_item.Fat}}
+.
+Calories - {{item.add_item.Calories}}
+
+<form method="post" action="/delete">
+    {% csrf_token %}
+    <input hidden name='id' type="text" value="{{id}}{{item.id}}">
+    <input type="submit" class="btn btn-danger btn-sm" value="delete">
+
+
+    </form>
+
+
+
+{% endif %}
+{% endfor %}
+
+</body>
+</html>
+{% endblock %}

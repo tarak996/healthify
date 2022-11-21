@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    .con{
+        margin-right:50%;
+        padding:7px;
+        color:black;
+        font-size:15px;
+        font-weight: 700;
+        background-color:LightSteelBlue;
+    }
+
+    .all{
+        margin-left:30%;
+        padding:2px;
+     }
+
+</style>
+</head>
+<body>
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input  class="btn btn-primary btn-md" type="submit" value="Create">
+</form> <hr>
+{% if user.is_authenticated %}
+{% for item in model %}
+{% if request.user == item.user%}
+<b>{{item.date}}</b><br>
+
+{% for total in date_list %}
+{% for k,v in total.items %}
+{% if v == item.id %}
+{% for k,v in total.items %}
+{% if k != 'date' %}
+<b style="font-size:20px;">{{k}} <span class="badge">{{v}}</span></b>
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endfor %}
+<a class="btn btn-success" href = "/details/{{item.id}}">View Details</a>
+<a class="btn btn-danger btn-sm" href="/delete/{{item.id}}">Delete</a><br><hr>
+{% endif %}
+{% endfor %}
+{% endif %}
+</body>
+</html>
+{% endblock %}
